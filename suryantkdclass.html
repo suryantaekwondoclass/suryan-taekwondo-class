@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Suryan Taekwondo Class</title>
+<!-- ===================== STYLES ===================== -->
+<style>
+  :root{
+    --primary:#c40000;
+    --accent:#ff3b3b;
+    --dark:#111;
+    --muted:#666;
+    --bg:#f5f5f5;
+    --white:#fff;
+    --glass: rgba(255,255,255,0.85);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--dark);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
+
+  a{color:inherit}
+  .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+
+  /* ===== top banner ===== */
+  .top-banner{
+    background:var(--dark);
+    color: #ffd84d;
+    text-align:center;
+    padding:10px 8px;
+    font-weight:700;
+    text-transform:uppercase;
+    overflow:hidden;
+    position:relative;
+  }
+  .top-banner .marquee{
+    display:inline-block;
+    white-space:nowrap;
+    animation: slide 12s linear infinite;
+  }
+  @keyframes slide{
+    0%{transform:translateX(100%)}
+    100%{transform:translateX(-100%)}
+  }
+
+  /* ===== header ===== */
+  header{
+    background: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url('https://images.pexels.com/photos/704538/pexels-photo-704538.jpeg') center/cover no-repeat;
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+    padding:48px 16px;
+  }
+  header .hero{
+    max-width:900px;
+    backdrop-filter: blur(2px);
+  }
+  header h1{
+    font-size:clamp(28px,5vw,48px);
+    margin:0 0 12px 0;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    text-shadow:0 6px 18px rgba(0,0,0,0.6);
+  }
+  header p{margin:0;font-size:1.05rem;opacity:0.95}
+
+  /* ===== nav ===== */
+  nav{
+    background:var(--dark);
+    color:#fff;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  nav .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;max-width:1200px;margin:0 auto}
+  nav .brand{font-weight:800;color:var(--primary);letter-spacing:0.6px}
+  nav .links{display:flex;gap:10px;flex-wrap:wrap}
+  nav a{color:#fff;text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600}
+  nav a:hover{background:rgba(255,255,255,0.04);color:var(--accent)}
+
+  /* ===== sections ===== */
+  section{padding:56px 0}
+  h2{color:var(--primary);margin:0 0 18px 0}
+  .card{background:var(--white);padding:22px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+  .muted{color:var(--muted)}
+
+  /* ===== training places ===== */
+  .places{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .place{border-left:6px solid var(--primary);padding:16px;border-radius:8px;background:var(--white)}
+
+  /* ===== coaches grid ===== */
+  .coaches{display:flex;gap:12px;flex-wrap:wrap}
+  .coach{background:var(--white);padding:16px;border-radius:8px;min-width:200px;flex:1 1 200px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+
+  /* ===== carousel ===== */
+  .carousel{
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    height:320px;
+  }
+  .carousel-track{
+    display:flex;
+    width:fit-content;
+    animation: carousel 18s linear infinite;
+  }
+  .carousel-slide{
+    min-width:100%;
+    height:320px;
+    background-size:cover;
+    background-position:center;
+    flex-shrink:0;
+  }
+  @keyframes carousel{
+    0%{transform:translateX(0)}
+    20%{transform:translateX(0)}
+    25%{transform:translateX(-100%)}
+    45%{transform:translateX(-100%)}
+    50%{transform:translateX(-200%)}
+    70%{transform:translateX(-200%)}
+    75%{transform:translateX(-300%)}
+    95%{transform:translateX(-300%)}
+    100%{transform:translateX(0)}
+  }
+
+  /* ===== gallery grid ===== */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+  .gallery-grid img{width:100%;height:200px;object-fit:cover;border-radius:8px;display:block}
+
+  /* mobile adjust */
+  @media(max-width:900px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    .carousel{height:220px}
+    .carousel-slide{height:220px}
+  }
+  @media(max-width:520px){
+    .gallery-grid{grid-template-columns:repeat(1,1fr)}
+    nav .links{display:none}
+  }
+
+  /* ===== admission form ===== */
+  .form-grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+  @media(max-width:920px){ .form-grid{grid-template-columns:1fr} }
+  label{display:block;margin-bottom:6px;font-weight:600}
+  input[type="text"],input[type="tel"],input[type="email"],select,textarea{
+    width:100%;padding:10px;border-radius:6px;border:1px solid #ddd;font-size:15px;margin-bottom:12px;
+  }
+  textarea{min-height:120px;resize:vertical}
+  .btn{
+    background:var(--primary);color:#fff;padding:10px 14px;border-radius:8px;border:none;font-weight:700;cursor:pointer;
+  }
+  .btn.secondary{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+
+  /* ===== floating whatsapp button ===== */
+  .whatsapp-float{
+    position:fixed;right:18px;bottom:92px;background:linear-gradient(180deg,#25D366,#128C7E);color:#fff;padding:12px 14px;border-radius:50px;display:flex;align-items:center;gap:8px;box-shadow:0 12px 30px rgba(0,0,0,0.2);z-index:60;text-decoration:none;
+  }
+  .whatsapp-float img{width:22px;height:22px}
+  .whatsapp-float .label{font-weight:700}
+
+  /* ===== sticky bottom banner ===== */
+  .sticky-banner{
+    position:fixed;left:0;right:0;bottom:0;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;padding:12px 10px;display:flex;justify-content:center;align-items:center;gap:12px;z-index:55;
+    box-shadow:0 -6px 18px rgba(0,0,0,0.15);
+  }
+  .sticky-banner .close{background:rgba(255,255,255,0.12);padding:6px 8px;border-radius:6px;cursor:pointer;font-weight:700}
+
+  /* small helpers */
+  .small{font-size:0.9rem;color:var(--muted)}
+  footer{background:#000;color:#fff;padding:22px 0;margin-top:60px;text-align:center}
+</style>
+</head>
+<body>
+
+  <!-- ================= TOP BANNER (animated) ================ -->
+  <div class="top-banner">
+    <div class="marquee">Personal Training For Self-Defense Techniques — 15 Days Special Program — Enroll Now!</div>
+  </div>
+
+  <!-- ================= NAV ================= -->
+  <nav>
+    <div class="nav-inner container">
+      <div class="brand">Suryan Taekwondo Class</div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#founder">Founder</a>
+        <a href="#coaches">Coaches</a>
+        <a href="#training">Training Places</a>
+        <a href="#admission">Admission</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HEADER HERO ================= -->
+  <header>
+    <div class="hero container">
+      <h1>Suryan Taekwondo Class</h1>
+      <p>Strong • Confident • Disciplined — 16 years experience | Black Belt & National Referee</p>
+    </div>
+  </header>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <div class="card">
+        <p>Suryan Taekwondo Class is a leading martial arts academy in Bhubaneswar with more than <strong>100+ students</strong>. We train kids, teens, and adults to build strength, discipline, flexibility, confidence, and self-defense skills. We also run focused programs for women's safety.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOUNDER ================= -->
+  <section id="founder">
+    <div class="container">
+      <h2>Founder</h2>
+      <div class="card">
+        <h3>Surya Narayan Nayak</h3>
+        <p><strong>Black Belt | National Referee in Taekwondo</strong></p>
+        <p>16 years of experience in Taekwondo and self-defense training. Conducted many workshops for women's self-defense and trained students for state and national championships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COACHES ================= -->
+  <section id="coaches">
+    <div class="container">
+      <h2>Coaches</h2>
+      <div class="coaches">
+        <div class="coach card">
+          <h3>Sitanshu Bhusan Das</h3>
+          <p class="small">Black Belt in Taekwondo | Assistant Coach</p>
+        </div>
+        <!-- add more coaches here if needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRAINING PLACES ================= -->
+  <section id="training">
+    <div class="container">
+      <h2>Training Places & Schedule</h2>
+      <div class="places">
+        <div class="place">
+          <h3>IMMT - Acharya Vihar, Bhubaneswar</h3>
+          <p><strong>Days:</strong> Wednesday, Saturday, Sunday</p>
+          <p><strong>Time:</strong> 5 PM – 6 PM</p>
+        </div>
+        <div class="place">
+          <h3>Assotech World - Hanspal, Bhubaneswar</h3>
+          <p><strong>Days:</strong> Tuesday, Thursday</p>
+          <p><strong>Time:</strong> 6 PM – 7:30 PM</p>
+        </div>
+        <div class="place">
+          <h3>Surekha Vatika - Hanspal, Bhubaneswar</h3>
+          <p><strong>Days:</strong> Sunday</p>
+          <p><strong>Time:</strong> 9 AM – 10:30 AM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EVENTS ================= -->
+  <section id="events">
+    <div class="container">
+      <h2>Upcoming Events</h2>
+      <div class="card">
+        <p>• Women Self-Defense Workshop — Coming Soon</p>
+        <p>• Annual Belt Promotion Test — Date to be announced</p>
+        <p>• Inter-Dojo Championship — Next Month</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ADMISSION (form + google form button) ================= -->
+  <section id="admission">
+    <div class="container">
+      <h2>Admission</h2>
+      <div class="form-grid">
+        <div class="card">
+          <form id="admissionForm">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" required placeholder="Your full name" />
+
+            <label for="age">Age</label>
+            <input id="age" name="age" type="text" required placeholder="e.g., 12 / 25" />
+
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" required placeholder="10 digit mobile number" />
+
+            <label for="email">Email (optional)</label>
+            <input id="email" name="email" type="email" placeholder="example@mail.com" />
+
+            <label for="program">Program Interested In</label>
+            <select id="program" name="program">
+              <option>Kids Taekwondo</option>
+              <option>Teens Taekwondo</option>
+              <option>Adult Fitness & Self-Defense</option>
+              <option>15 Days Personal Self-Defense Training</option>
+            </select>
+
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us anything (previous experience, preferred timing...)"></textarea>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="submit" class="btn">Send via WhatsApp</button>
+              <button type="button" id="resetBtn" class="btn secondary">Reset</button>
+            </div>
+
+            <p class="small" style="margin-top:10px">By clicking "Send via WhatsApp" your message will open in WhatsApp for confirmation. No data is stored on this site.</p>
+          </form>
+        </div>
+
+        <!-- Right column: contact card + Google Form button -->
+        <aside>
+          <div class="card" style="margin-bottom:14px">
+            <h3>Contact</h3>
+            <p><strong>Phone:</strong> 9668015742</p>
+            <p><strong>Location:</strong> Bhubaneswar</p>
+            <p class="small">Want an email address set up for admissions? I can give you HTML + server code or use Google Forms to collect submissions.</p>
+          </div>
+
+          <div class="card">
+            <h3>Alternative — Google Form</h3>
+            <p class="small">If you prefer Google Forms, create one and paste its link in the script where indicated. For now the button opens a placeholder.</p>
+            <a href="https://docs.google.com/forms" target="_blank" class="btn secondary" style="display:inline-block">Open/Create Google Form</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY (carousel + grid) ================= -->
+  <section id="gallery">
+    <div class="container">
+      <h2>Gallery</h2>
+
+      <!-- Carousel -->
+      <div class="carousel" aria-hidden="false">
+        <div class="carousel-track">
+          <div class="carousel-slide" style="background-image:url('https://images.pexels.com/photos/1545710/pexels-photo-1545710.jpeg')"></div>
+          <div class="carousel-slide" style="background-image:url('https://images.pexels.com/photos/1600714/pexels-photo-1600714.jpeg')"></div>
+          <div class="carousel-slide" style="background-image:url('https://images.pexels.com/photos/3820082/pexels-photo-3820082.jpeg')"></div>
+          <div class="carousel-slide" style="background-image:url('https://images.pexels.com/photos/4778632/pexels-photo-4778632.jpeg')"></div>
+        </div>
+      </div>
+
+      <div style="height:18px"></div>
+
+      <!-- Grid -->
+      <div class="card">
+        <div class="gallery-grid">
+          <img src="https://images.pexels.com/photos/704538/pexels-photo-704538.jpeg" alt="Training 1">
+          <img src="https://images.pexels.com/photos/3961337/pexels-photo-3961337.jpeg" alt="Training 2">
+          <img src="https://images.pexels.com/photos/345786/pexels-photo-345786.jpeg" alt="Kicking">
+          <img src="https://images.pexels.com/photos/4761798/pexels-photo-4761798.jpeg" alt="Practice">
+          <img src="https://images.pexels.com/photos/40462/boxer-kick-training-boxing-40462.jpeg" alt="Sparring">
+          <img src="https://images.pexels.com/photos/4058298/pexels-photo-4058298.jpeg" alt="Coaching">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="card">
+        <p><strong>Phone:</strong> 9668015742</p>
+        <p><strong>Email:</strong> <span class="muted">(You can request me to generate a contact email)</span></p>
+        <p><strong>Address:</strong> Bhubaneswar</p>
+        <p class="small">Follow us on social media for class updates and tips.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      © 2025 Suryan Taekwondo Class. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
+  <a id="whatsappFloat" class="whatsapp-float" href="#" target="_blank" aria-label="Chat on WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="whatsapp">
+    <span class="label">Chat</span>
+  </a>
+
+  <!-- ================= STICKY BOTTOM BANNER ================= -->
+  <div class="sticky-banner" id="stickyBanner" role="region" aria-label="Promo">
+    <div>Join Our 15 Days Self-Defense Program — Limited Seats!</div>
+    <div style="display:flex;gap:8px">
+      <button id="bannerEnroll" class="btn">Enroll Now</button>
+      <div id="bannerClose" class="close">✕</div>
+    </div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    /****************************************************************
+     * SETTINGS you can change:
+     * - whatsappNumber: change to your number (country code + number, no + or 00). Example for India: 91XXXXXXXXXX
+     * - googleFormLink: paste your Google Form URL if you want the Google Form button to open it
+     ****************************************************************/
+    const whatsappNumber = "919668015742"; // <--- change only this if you want a different number (country code + number). Current: India +91 + 9668015742
+    const googleFormLink = ""; // paste your Google Form URL here if you have one (leave empty for default docs.google link)
+
+    // Set WhatsApp floating button default action (open chat)
+    const whatsappFloat = document.getElementById("whatsappFloat");
+    whatsappFloat.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello Suryan Taekwondo Class! I want to know about classes.")}`;
+
+    // Admission form: build message and open WhatsApp on submit
+    const admissionForm = document.getElementById("admissionForm");
+    admissionForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const program = document.getElementById("program").value;
+      const message = document.getElementById("message").value.trim();
+
+      let msg = `Admission%20Request%20-%20Suryan%20Taekwondo%20Class%0AName:%20${encodeURIComponent(name)}%0AAge:%20${encodeURIComponent(age)}%0APhone:%20${encodeURIComponent(phone)}%0AProgram:%20${encodeURIComponent(program)}%0AEmail:%20${encodeURIComponent(email)}%0AMessage:%20${encodeURIComponent(message)}`;
+
+      // open WhatsApp chat with the prefilled message
+      const waUrl = `https://wa.me/${whatsappNumber}?text=${msg}`;
+      window.open(waUrl, "_blank");
+    });
+
+    // Reset button
+    document.getElementById("resetBtn").addEventListener("click", function(){ admissionForm.reset(); });
+
+    // Banner enroll button opens WhatsApp quick message (or Google Form if you prefer)
+    document.getElementById("bannerEnroll").addEventListener("click", function(){
+      // If you prefer Google Form to be primary, uncomment this and set googleFormLink
+      if(googleFormLink && googleFormLink.length>5){
+        window.open(googleFormLink, "_blank");
+      } else {
+        const quick = `Hello!%20I%20want%20to%20enroll%20in%20the%2015%20Days%20Self-Defense%20Program.`;
+        window.open(`https://wa.me/${whatsappNumber}?text=${quick}`, "_blank");
+      }
+    });
+
+    // Close sticky banner
+    document.getElementById("bannerClose").addEventListener("click", function(){
+      document.getElementById("stickyBanner").style.display = "none";
+    });
+
+    // Small improvement: pause carousel animation on hover
+    const carousel = document.querySelector(".carousel");
+    const track = document.querySelector(".carousel-track");
+    carousel.addEventListener("mouseenter", ()=> track.style.animationPlayState = 'paused');
+    carousel.addEventListener("mouseleave", ()=> track.style.animationPlayState = 'running');
+
+    // Accessibility: if user prefers reduced motion, stop animations
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq.matches){
+      document.documentElement.style.setProperty('--reduce-motion','1');
+      if(track) track.style.animation = 'none';
+      const marquee = document.querySelector('.top-banner .marquee');
+      if(marquee) marquee.style.animation = 'none';
+    }
+
+    // Optional: lazy load gallery images for performance (native)
+    document.querySelectorAll('.gallery-grid img').forEach(img => img.loading = 'lazy');
+
+    // If you want to programmatically update the Google Form button or link area later,
+    // store googleFormLink at top and modify behavior accordingly.
+
+  </script>
+</body>
+</html>
