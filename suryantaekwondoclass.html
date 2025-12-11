@@ -1,0 +1,57 @@
+<script>
+  /****************************************************************
+   * SETTINGS:
+   ****************************************************************/
+  const whatsappNumber = "919668015742"; 
+  const googleFormLink = ""; 
+
+  // Floating WhatsApp Button
+  const whatsappFloat = document.getElementById("whatsappFloat");
+  whatsappFloat.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hello Suryan Taekwondo Class! I want to know about the classes."
+  )}`;
+
+  // Admission Form -> WhatsApp Message
+  document.getElementById("admissionForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value || "Not Provided";
+    const program = document.getElementById("program").value;
+    const message = document.getElementById("message").value || "No extra message";
+
+    const finalMessage =
+      `New Admission Enquiry:%0A` +
+      `Name: ${name}%0A` +
+      `Age: ${age}%0A` +
+      `Phone: ${phone}%0A` +
+      `Email: ${email}%0A` +
+      `Program: ${program}%0A` +
+      `Message: ${message}`;
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${finalMessage}`, "_blank");
+  });
+
+  // Reset Button
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    document.getElementById("admissionForm").reset();
+  });
+
+  // Sticky Banner Close
+  document.getElementById("bannerClose").addEventListener("click", () => {
+    document.getElementById("stickyBanner").style.display = "none";
+  });
+
+  // Banner Enroll Button (opens WhatsApp)
+  document.getElementById("bannerEnroll").addEventListener("click", () => {
+    window.open(
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        "I want to enroll for the 15 Days Personal Self-Defense Training."
+      )}`,
+      "_blank"
+    );
+  });
+
+</script>
